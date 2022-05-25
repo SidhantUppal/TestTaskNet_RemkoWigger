@@ -421,10 +421,11 @@ Public Class tabpage2
         cbo_org = TryCast(bcp_con.FindControl("cbo_mtc_organisation"), BootstrapComboBox)
         cbo_con = TryCast(bcp_con.FindControl("cbo_mtc_contact"), BootstrapComboBox)
 
+        cbo_org = TryCast(bcp_con.FindControl("cbo_mtc_organisation"), BootstrapComboBox)
 
-        Dim dd = cbo_org.SelectedItem
-        Dim ddd = cbo_org.SelectedIndex
-
+        Dim ddd = cbo_org.SelectedItem
+        Dim dddd = cbo_org.SelectedIndex
+        Dim ddddd = cbo_org.Value
 
         If Session("access_level") = 1 Then
             cbo_org.Items.Remove(cbo_org.Items.FindByValue("man"))
@@ -441,31 +442,24 @@ Public Class tabpage2
             End If
 
         Else
-            ' ******************************* We can improve the code here *****************************
+
             Dim id As String
             Select Case bgv_Maintenance.GetRowValues(bgv_Maintenance.EditingRowVisibleIndex, New String() {"mtc_by_org"}).ToString()
                 Case "Manufacturer"
                     cbo_org.Value = "man"
                     id = bgv_Maintenance.GetRowValues(bgv_Maintenance.EditingRowVisibleIndex, New String() {"id_manufacturer"}).ToString()
                     'Session("mtc_id_cmy") = id
-                    'bgv_Maintenance_Contacts("man", id)
+                    bgv_Maintenance_Contacts("man", id)
                 Case "Maintenance Organisation"
                     cbo_org.Value = "mo"
                     id = bgv_Maintenance.GetRowValues(bgv_Maintenance.EditingRowVisibleIndex, New String() {"id_mo"}).ToString()
                     'Session("mtc_id_cmy") = id
-                    'bgv_Maintenance_Contacts("mo", id)
+                    bgv_Maintenance_Contacts("mo", id)
                 Case "Air Operator"
                     cbo_org.Value = "aop"
                     id = bgv_Maintenance.GetRowValues(bgv_Maintenance.EditingRowVisibleIndex, New String() {"id_air_operator"}).ToString()
-
-                    ' ****************************  REMOVED *********************
-                    ' Every time Air Operator case was calling because we are not updating the values on selection.
-                    ' So i changed to on selected item instead of getting the data from the database.
-
                     'Session("mtc_id_cmy") = id
-                    'bgv_Maintenance_Contacts("aop", id)
-
-                    '************************************************************
+                    bgv_Maintenance_Contacts("aop", id)
                 Case Else
                     cbo_org.Value = "aop"
                     cbo_org.ClientEnabled = False
