@@ -30,8 +30,7 @@
 <body class="mod-bg-1">
     <script>
 
-        function UpdateContacts(cbo) {
-            debugger;
+        function UpdateContacts(cbo, updateSession) { 
 
             switch (cbo) {
                 case 'org':
@@ -55,9 +54,25 @@
                     var cmbAOP = bgv_Maintenance.GetEditor("id_air_operator");
                     var strID = 'aop|' + cmbAOP.GetValue().toString();
                     break;
+
                 case 'prs':
                     //alert(cbo_mtc_contact.GetValue().toString());
-                    var strID = 'prs|' + cbo_mtc_contact.GetValue().toString()
+                    var cbo_org = cbo_mtc_organisation.GetValue().toString();
+                    var cmbOrgValue = "";
+
+                    switch (cbo_org) {
+                        case 'man':
+                            cmbOrgValue = bgv_Maintenance.GetEditor("id_manufacturer").GetValue().toString();
+                            break;
+                        case 'mo':
+                            cmbOrgValue = bgv_Maintenance.GetEditor("id_mo").GetValue().toString();
+                            break;
+                        case 'aop':
+                            cmbOrgValue = bgv_Maintenance.GetEditor("id_air_operator").GetValue().toString();
+                            break;
+                    }
+
+                    var strID = 'prs|' + cbo_mtc_contact.GetValue().toString() + '|' + cmbOrgValue;
                 default:
             }
             bcp_mtc_Contacts.PerformCallback(strID);

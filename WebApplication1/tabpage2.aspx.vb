@@ -494,6 +494,12 @@ Public Class tabpage2
         Dim whatArray() As String = Split(e.Parameter, "|")
         Dim what As String = whatArray(0)
         Dim val As String = whatArray(1)
+        Dim orrVal As String = ""
+
+        If (whatArray.Length > 2) Then
+            orrVal = whatArray(2)
+        End If
+
 
         Dim str_SQL As String = ""
         Select Case what
@@ -528,13 +534,16 @@ Public Class tabpage2
                 Select Case cbo_org.Value
                     Case "man"
                         'bgv_Maintenance_Contacts("man", bgv_Maintenance.GetRowValues(bgv_Maintenance.EditingRowVisibleIndex, New String() {"id_manufacturer"}).ToString())
-                        bgv_Maintenance_Contacts("man", Session("mtc_id_cmy"))
+                        'bgv_Maintenance_Contacts("man", Session("mtc_id_cmy"))
+                        bgv_Maintenance_Contacts("man", orrVal)
                     Case "mo"
                         'bgv_Maintenance_Contacts("mo", bgv_Maintenance.GetRowValues(bgv_Maintenance.EditingRowVisibleIndex, New String() {"id_mo"}).ToString())
-                        bgv_Maintenance_Contacts("mo", Session("mtc_id_cmy"))
+                        ' bgv_Maintenance_Contacts("mo", Session("mtc_id_cmy"))
+                        bgv_Maintenance_Contacts("mo", orrVal)
                     Case "aop"
                         'bgv_Maintenance_Contacts("aop", bgv_Maintenance.GetRowValues(bgv_Maintenance.EditingRowVisibleIndex, New String() {"id_air_operator"}).ToString())
-                        bgv_Maintenance_Contacts("aop", Session("mtc_id_cmy"))
+                        'bgv_Maintenance_Contacts("aop", Session("mtc_id_cmy"))
+                        bgv_Maintenance_Contacts("aop", orrVal)
                 End Select
 
                 cbo_con.Value = Session("mtc_id_prs")
